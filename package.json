@@ -1,5 +1,5 @@
 {
-  "name": "next-starter",
+  "name": "mvp-20",
   "version": "0.1.0",
   "private": true,
   "author": "Paralect",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paralect/next-starter.git"
+    "url": "git+https://github.com/prlct/mvp-20"
   },
   "scripts": {
     "build": "next build",
