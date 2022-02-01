@@ -48,7 +48,7 @@
   &.link {
     background-color: transparent;
     border: 1px solid transparent;
-    color: var(--blue);
+    color: var(--primary);
 
     &:hover {
       color: var(--hover-blue);
@@ -100,6 +100,6 @@
   height: 32px;
   min-width: 70px;
   padding: 6px 16px;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 12px;
+  line-height: 16px;
 }

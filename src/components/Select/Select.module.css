@@ -6,16 +6,16 @@
   transition: all 0.2s ease-in-out;
 
   &:focus-within {
-    color: var(--blue);
+    color: var(--primary);
 
     .label {
       &.error {
-        color: var(--red);
+        color: var(--error);
       }
     }
 
     .icon {
-      color: var(--blue);
+      color: var(--primary);
     }
   }
 }
@@ -25,7 +25,7 @@
   font-weight: 500;
 
   &.error {
-    color: var(--red);
+    color: var(--error);
   }
 }
 
@@ -46,11 +46,11 @@
 
   [class$='-control']:active,
   [class$='-control']:focus {
-    border-color: var(--blue);
+    border-color: var(--primary);
   }
 
   [class$='-control--menu-is-open'] {
-    border-color: var(--blue);
+    border-color: var(--primary);
   }
 
   [class$='-placeholder'] {
@@ -58,7 +58,7 @@
   }
 
   [class$='-control--is-focused'] {
-    border-color: var(--blue);
+    border-color: var(--primary);
   }
 
   [class$='multi-value__label'] {
@@ -78,14 +78,14 @@
 
   &.error {
     [class$='-control']:hover {
-      border-color: var(--red) !important;
+      border-color: var(--error) !important;
     }
   }
 }
 
 .errorMessage {
   margin-top: 2px;
-  color: var(--red);
+  color: var(--error);
   font-size: 12px;
   line-height: 15px;
   word-wrap: break-word;

@@ -14,12 +14,12 @@
 
   &.info {
     background-color: rgba(0, 100, 235, 0.1);
-    color: var(--blue);
+    color: var(--primary);
   }
 
   &.error {
     background-color: rgba(235, 87, 87, 0.1);
-    color: var(--red);
+    color: var(--error);
   }
 
   &.alert {

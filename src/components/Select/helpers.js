@@ -24,13 +24,13 @@ export const getCustomStyle = (isError) => ({
   }),
   control: (provided, state) => {
     const borderColor = state.isFocused
-      ? '1px solid var(--blue) !important'
+      ? '1px solid var(--primary) !important'
       : '1px solid var(--gray)';
 
     return ({
       ...provided,
       border: isError
-        ? '1px solid var(--red)'
+        ? '1px solid var(--error)'
         : borderColor,
       borderRadius: '6px',
       fontWeight: '400',
@@ -39,7 +39,7 @@ export const getCustomStyle = (isError) => ({
       transition: 'all 0.2s ease-in-out',
       ':hover': {
         border: state.isFocused
-          ? '1px solid var(--blue) !important'
+          ? '1px solid var(--primary) !important'
           : '1px solid var(--gray-dark) !important',
       },
     });

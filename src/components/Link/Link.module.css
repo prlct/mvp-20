@@ -2,7 +2,7 @@
   max-width: fit-content;
   display: inline-flex;
   align-items: center;
-  color: var(--blue);
+  color: var(--primary);
   text-decoration: none;
   transition: all 0.15s;
 
@@ -11,9 +11,9 @@
     opacity: 0.3;
   }
 
-  &:hover:not(.withoutUnderline) {
+  &:not(.withoutUnderline) {
     .text {
-      box-shadow: inset 0 -1px 0 var(--blue);
+      text-decoration: underline;
     }
   }
 }
@@ -40,8 +40,8 @@
   max-height: 20px;
 
   .text {
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 12px;
+    line-height: 16px;
   }
 }
 

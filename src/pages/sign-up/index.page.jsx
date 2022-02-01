@@ -10,6 +10,8 @@ import { path } from 'pages/routes';
 import useHandleError from 'hooks/use-handle-error';
 import { userActions } from 'resources/user/user.slice';
 
+import { CheckMarkIcon } from 'public/icons';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Link from 'components/Link';
@@ -25,6 +27,8 @@ const schema = yup.object().shape({
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ),
 });
+
+const passwordRules = ['Be a minimum of six characters', 'Have at least one capital letter', 'Have at least one number'];
 
 const SignUp = () => {
   const handleError = useHandleError();
@@ -94,14 +98,17 @@ const SignUp = () => {
         <title>Sign up</title>
       </Head>
       <div className={styles.container}>
-        <h2>Sign Up</h2>
+        <div className={styles.title}>
+          <h2>Sign Up</h2>
+          <div className={styles.line} />
+        </div>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className={styles.form}
         >
           <Input
             name="firstName"
-            label="First Name"
             maxLength="100"
             placeholder="Your first name"
             control={control}
@@ -109,7 +116,6 @@ const SignUp = () => {
           />
           <Input
             name="lastName"
-            label="Last Name"
             maxLength="100"
             placeholder="Your last name"
             control={control}
@@ -117,7 +123,6 @@ const SignUp = () => {
           />
           <Input
             name="email"
-            label="Email Address"
             placeholder="Your email"
             control={control}
             error={errors.email}
@@ -125,29 +130,54 @@ const SignUp = () => {
           <Input
             name="password"
             type="password"
-            label="Password"
             placeholder="Your password"
             control={control}
             error={errors.password}
           />
+          <div className={styles.passwordRulesWrapper}>
+            <p>Password must:</p>
+            <div>
+              {passwordRules.map((text) => (
+              <div className={styles.passwordRulesItem}>
+                <div className={styles.checkmark}>
+                  <CheckMarkIcon className={styles.checkmarkIcon} />
+                </div>
+                <p>{text}</p>
+              </div>
+              ))}
+            </div>
+          </div>
           <Button
             htmlType="submit"
             loading={loading}
             className={styles.button}
+            size="s"
           >
-            Sign Up
+            Sign Up For Free
           </Button>
         </form>
+
         <div className={styles.description}>
-          Have an account?
+          <p>Already registered?</p>
           <Link
             type="router"
             href={path.signIn}
             className={styles.link}
           >
-            Sign In
+            Sign in now
           </Link>
         </div>
+
+        <div className={styles.terms}>
+          <p>By signing up for [PRODUCT NAME] you are agreeing to the <Link
+            type="url"
+            href="#"
+            className={styles.termsLink}
+          >
+            Terms and Conditions
+          </Link></p>
+        </div>
+
       </div>
     </>
   );

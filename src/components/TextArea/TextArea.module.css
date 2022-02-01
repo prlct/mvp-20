@@ -4,11 +4,11 @@
   transition: all 0.2s ease-in-out;
 
   &:focus-within {
-    color: var(--blue);
+    color: var(--primary);
 
     .label {
       &.error {
-        color: var(--red);
+        color: var(--error);
       }
     }
   }
@@ -19,7 +19,7 @@
   font-weight: 500;
 
   &.error {
-    color: var(--red);
+    color: var(--error);
   }
 }
 
@@ -38,7 +38,7 @@
   }
 
   &:focus {
-    border: 1px solid var(--blue);
+    border: 1px solid var(--primary);
   }
 
   &:disabled {
@@ -54,21 +54,21 @@
   }
 
   &.error {
-    border-color: var(--red);
+    border-color: var(--error);
 
     &:focus {
-      border-color: var(--red);
+      border-color: var(--error);
     }
 
     &:hover:not(:focus) {
-      border-color: var(--red);
+      border-color: var(--error);
     }
   }
 }
 
 .errorMessage {
   margin-top: 2px;
-  color: var(--red);
+  color: var(--error);
   font-size: 12px;
   line-height: 15px;
   word-wrap: break-word;

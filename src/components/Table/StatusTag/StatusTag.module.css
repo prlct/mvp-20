@@ -19,7 +19,7 @@
   }
 
   &.negative {
-    background-color: var(--red);
+    background-color: var(--error);
   }
 
   &.neutral {

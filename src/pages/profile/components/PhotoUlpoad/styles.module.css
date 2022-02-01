@@ -22,7 +22,7 @@
     cursor: pointer;
 
     &.error {
-        border: 1px dashed var(--red);
+        border: 1px dashed var(--error);
     }
 
     &:hover {
@@ -88,5 +88,5 @@
     margin-top: 4px;
     font-size: 14px;
     line-height: 17px;
-    color: var(--red);
+    color: var(--error);
 }

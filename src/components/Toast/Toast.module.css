@@ -39,12 +39,12 @@
 }
 
 .error {
-  background-color: var(--red);
+  background-color: var(--error);
   color: var(--white);
 }
 
 .info {
-  background-color: var(--blue);
+  background-color: var(--primary);
   color: var(--white);
 }
 

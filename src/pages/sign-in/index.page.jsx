@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import cn from 'classnames';
 import Head from 'next/head';
 
 import { path } from 'pages/routes';
@@ -17,8 +18,8 @@ import MemoCard from 'components/MemoCard';
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
-  email: yup.string().email('Email format is incorrect.').required('Field is required.'),
-  password: yup.string().required('Field is required.'),
+  username: yup.string().required('Username incorrect.'),
+  password: yup.string().required('Password incorrect.'),
 });
 
 const SignIn = () => {
@@ -50,52 +51,70 @@ const SignIn = () => {
         <title>Sign in</title>
       </Head>
       <div className={styles.container}>
-        <h2>Sign In</h2>
+        <div className={styles.title}>
+            <h2>Sign In</h2>
+            <div className={styles.line} />
+        </div>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className={styles.form}
         >
-          <Input
-            name="email"
-            label="Email Address"
-            placeholder="Email"
-            control={control}
-            error={errors.email}
-          />
-          <Input
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="Password"
-            control={control}
-            error={errors.password}
-          />
+          <div className={styles.inputWrapper}>
+            <Input
+              name="username"
+              placeholder="Username"
+              control={control}
+              error={errors.username}
+            />
+            {errors.username && (
+            <Link
+                type="url"
+                href="#"
+                className={styles.forgotLink}
+            >
+              Forgot username?
+            </Link>
+            )}
+          </div>
+          
+          <div className={styles.inputWrapper}>
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              control={control}
+              error={errors.password}
+            />
+
+            <Link
+                type="url"
+                href="#"
+                className={cn(styles.forgotLink, !errors.password && styles.forgotPasswordLink)}
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           <Button
             className={styles.button}
             loading={loading}
             htmlType="submit"
           >
-            Sign in
+            Sign In
           </Button>
+
           <div className={styles.description}>
-            <div>
-              Don’t have an account?
-              <Link
-                type="router"
-                href={path.signUp}
-                className={styles.signUplink}
-              >
-                Sign up
-              </Link>
-            </div>
+            <p>Don’t have an account?</p>
             <Link
               type="router"
-              href={path.forgotPassword}
-              className={styles.forgotPasswordLink}
+              href={path.signUp}
+              className={styles.signUplink}
             >
-              Forgot password?
+              Sign up now
             </Link>
           </div>
+
         </form>
         <MemoCard items={errors.credentials} />
       </div>
