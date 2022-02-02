@@ -7,7 +7,7 @@
     "selector-max-compound-selectors": 3
   },
   "ignoreFiles": [
-    '**/*.jsx',
-    '**/*.js'
+    "**/*.jsx",
+    "**/*.js"
   ]
 }
