@@ -15,6 +15,7 @@ export const path = {
   404: '/404',
   signIn: '/sign-in',
   signUp: '/sign-up',
+  onboarding: '/onboarding',
 };
 
 export const configuration = {
@@ -37,6 +38,11 @@ export const configuration = {
     path: path.signUp,
     scope: scope.PUBLIC,
     layout: layout.UNAUTHORIZED,
+  },
+  onboarding: {
+    path: path.onboarding,
+    scope: scope.PUBLIC,
+    layout: layout.NONE,
   },
 };
 

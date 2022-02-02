@@ -2,6 +2,8 @@ import React, { forwardRef, memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import { CheckMarkIcon } from 'public/icons/index';
+
 import styles from './Checkbox.module.css';
 
 const Checkbox = forwardRef(({
@@ -23,12 +25,14 @@ const Checkbox = forwardRef(({
       disabled={disabled}
       className={styles.input}
     />
-    <span
+    <div
       className={cn({
         [styles.checked]: checked,
         [styles.disabled]: disabled,
       }, styles.checkbox)}
-    />
+    >
+      {checked && <CheckMarkIcon />}
+    </div>
     <label
       htmlFor="checkbox"
       className={styles.label}

@@ -23,8 +23,8 @@
 
   &.secondary {
     border: 1px solid var(--gray);
-    background-color: var(--white);
-    color: var(--black);
+    background-color: transparent;
+    color: #696F8C;
 
     &:hover {
       background-color: var(--gray-light);
@@ -47,11 +47,10 @@
 
   &.link {
     background-color: transparent;
-    border: 1px solid transparent;
-    color: var(--primary);
+    color: #696F8C;
 
     &:hover {
-      color: var(--hover-blue);
+      color: var(--black);
     }
   }
 

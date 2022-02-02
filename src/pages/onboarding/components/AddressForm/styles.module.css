@@ -1,0 +1,33 @@
+.wrapper {
+  & h2 {
+    color: #474D66;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  & p {
+    margin-bottom: 22px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.input {
+  margin-bottom: 16px;
+}
+
+.stateAndZipContainer {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    width: 49%;
+  }
+}
+
+.button {
+  width: 100%;
+  margin-top: 43px;
+  height: 49px;
+}

@@ -35,7 +35,7 @@ const Input = forwardRef(({
         htmlFor={name}
         className={cn({
           [styles.error]: error,
-        }, styles.label, className)}
+        }, styles.label)}
       >
         {label}
       </label>

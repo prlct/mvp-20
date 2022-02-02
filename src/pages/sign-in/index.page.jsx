@@ -52,8 +52,8 @@ const SignIn = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.title}>
-            <h2>Sign In</h2>
-            <div className={styles.line} />
+          <h2>Sign In</h2>
+          <div className={styles.line} />
         </div>
 
         <form
@@ -69,15 +69,15 @@ const SignIn = () => {
             />
             {errors.username && (
             <Link
-                type="url"
-                href="#"
-                className={styles.forgotLink}
+              type="url"
+              href="#"
+              className={styles.forgotLink}
             >
               Forgot username?
             </Link>
             )}
           </div>
-          
+
           <div className={styles.inputWrapper}>
             <Input
               name="password"
@@ -88,9 +88,9 @@ const SignIn = () => {
             />
 
             <Link
-                type="url"
-                href="#"
-                className={cn(styles.forgotLink, !errors.password && styles.forgotPasswordLink)}
+              type="url"
+              href="#"
+              className={cn(styles.forgotLink, !errors.password && styles.forgotPasswordLink)}
             >
               Forgot password?
             </Link>

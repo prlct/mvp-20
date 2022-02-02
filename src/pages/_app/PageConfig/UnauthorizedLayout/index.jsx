@@ -10,7 +10,7 @@ const UnauthorizedLayout = ({ children }) => (
       <Logo className={styles.logo} />
       <p>HomeBase</p>
     </header>
-    
+
     <main className={styles.content}>
       {children}
     </main>

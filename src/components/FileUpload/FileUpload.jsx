@@ -25,6 +25,7 @@ const FileUpload = ({
   SubmitButtonComponent,
   setDocumentsCount,
   getUploadParams,
+  className,
 }) => {
   const [error, setError] = useState({});
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
@@ -76,7 +77,7 @@ const FileUpload = ({
   };
 
   return (
-    <div className={cn(sizes[size])}>
+    <div className={cn(sizes[size], className)}>
       <Dropzone
         getUploadParams={getUploadParams}
         onSubmit={handleSubmit}
@@ -104,6 +105,7 @@ FileUpload.propTypes = {
   handleSubmit: PropTypes.func,
   getUploadParams: PropTypes.func,
   setDocumentsCount: PropTypes.func,
+  className: PropTypes.string,
 };
 
 FileUpload.defaultProps = {
@@ -114,6 +116,7 @@ FileUpload.defaultProps = {
   SubmitButtonComponent: null,
   getUploadParams: null,
   setDocumentsCount: null,
+  className: null,
 };
 
 export default memo(FileUpload);
