@@ -1,14 +1,11 @@
 import * as yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
 import config from 'config';
 import { path } from 'pages/routes';
-import useHandleError from 'hooks/use-handle-error';
-import { userActions } from 'resources/user/user.slice';
 
 import { CheckMarkIcon } from 'public/icons';
 
@@ -31,9 +28,6 @@ const schema = yup.object().shape({
 const passwordRules = ['Be a minimum of six characters', 'Have at least one capital letter', 'Have at least one number'];
 
 const SignUp = () => {
-  const handleError = useHandleError();
-  const dispatch = useDispatch();
-
   const [values, setValues] = useState({});
   const [registered, setRegistered] = useState(false);
 
@@ -51,14 +45,15 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      const response = await dispatch(userActions.signUp(data));
+      // TODO: signup
+      const response = null;
 
       if (response.signupToken) setSignupToken(response.signupToken);
 
       setRegistered(true);
       setValues(data);
     } catch (e) {
-      handleError(e, setError);
+      console.log('sign up error: ', e);
     } finally {
       setLoading(false);
     }
@@ -138,12 +133,12 @@ const SignUp = () => {
             <p>Password must:</p>
             <div>
               {passwordRules.map((text) => (
-              <div className={styles.passwordRulesItem}>
-                <div className={styles.checkmark}>
-                  <CheckMarkIcon className={styles.checkmarkIcon} />
+                <div key={text} className={styles.passwordRulesItem}>
+                  <div className={styles.checkmark}>
+                    <CheckMarkIcon className={styles.checkmarkIcon} />
+                  </div>
+                  <p>{text}</p>
                 </div>
-                <p>{text}</p>
-              </div>
               ))}
             </div>
           </div>
@@ -169,13 +164,18 @@ const SignUp = () => {
         </div>
 
         <div className={styles.terms}>
-          <p>By signing up for [PRODUCT NAME] you are agreeing to the <Link
-            type="url"
-            href="#"
-            className={styles.termsLink}
-          >
-            Terms and Conditions
-          </Link></p>
+          <p>
+            By signing up for [PRODUCT NAME] you are agreeing to the
+            {' '}
+            <Link
+              type="url"
+              href="#"
+              className={styles.termsLink}
+            >
+              Terms and Conditions
+            </Link>
+
+          </p>
         </div>
 
       </div>

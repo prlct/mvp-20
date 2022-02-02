@@ -3,31 +3,24 @@ import {
 } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { path } from 'pages/routes';
 
 import { useOutsideClick } from 'hooks/use-outside-click';
-
-import { userActions, userSelectors } from 'resources/user/user.slice';
 
 import Avatar from 'components/Avatar';
 
 import styles from './styles.module.css';
 
 const UserMenu = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
-
-  const user = useSelector(userSelectors.selectUser);
 
   const avatarRef = useRef();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
   const onSignOutClick = useCallback(async () => {
-    await dispatch(userActions.signOut());
-  }, [dispatch]);
+  }, []);
 
   const onSettingsClick = useCallback(async () => {
     await router.push(path.profile);
@@ -54,8 +47,8 @@ const UserMenu = () => {
       >
         <Avatar
           onClick={() => router.push(path.profile)}
-          fullName={`${user.firstName} ${user.lastName}`}
-          src={user.avatarUrl}
+          fullName="User fullName"
+          src={null}
         />
       </button>
 

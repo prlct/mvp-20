@@ -1,14 +1,11 @@
 import * as yup from 'yup';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import cn from 'classnames';
 import Head from 'next/head';
 
 import { path } from 'pages/routes';
-import useHandleError from 'hooks/use-handle-error';
-import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -23,9 +20,6 @@ const schema = yup.object().shape({
 });
 
 const SignIn = () => {
-  const handleError = useHandleError();
-  const dispatch = useDispatch();
-
   const {
     handleSubmit, formState: { errors }, setError, control,
   } = useForm({
@@ -37,9 +31,9 @@ const SignIn = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await dispatch(userActions.signIn(data));
+      // TODO: sign in
     } catch (e) {
-      handleError(e, setError);
+      console.log('sign in error: ', e);
     } finally {
       setLoading(false);
     }

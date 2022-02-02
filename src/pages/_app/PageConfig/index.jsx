@@ -1,8 +1,5 @@
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-
-import { userSelectors } from 'resources/user/user.slice';
 
 import * as routes from 'pages/routes';
 
@@ -28,7 +25,7 @@ const scopeToComponent = {
 const PageConfig = ({ children }) => {
   const router = useRouter();
 
-  const user = useSelector(userSelectors.selectUser);
+  const user = null;
 
   const page = routes.configurations.find((r) => r.path === router.route);
   const Layout = layoutToComponent[page.layout];

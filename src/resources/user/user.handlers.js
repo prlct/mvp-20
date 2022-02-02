@@ -1,20 +1,18 @@
 import api from 'services/api.service';
 import * as socketService from 'services/socket.service';
 
-import store from 'resources/store';
-import { userSelectors, userActions } from 'resources/user/user.slice';
-
 api.on('error', (error) => {
   if (error.status === 401) {
-    store.dispatch(userActions.signOut());
+    // TODO: user sign out
   }
 });
 
 socketService.on('connect', () => {
-  const user = userSelectors.selectUser(store.getState());
+  // TODO: get user
+  const user = { _id: 'fakeId' };
   socketService.emit('subscribe', `user-${user._id}`);
 });
 
 socketService.on('user:updated', (user) => {
-  store.dispatch(userActions.setUser({ user }));
+  // TODO: update user
 });

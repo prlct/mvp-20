@@ -6,7 +6,6 @@
   "license": "MIT",
   "keywords": [
     "react",
-    "redux",
     "next",
     "paralect"
   ],
@@ -24,7 +23,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.3",
-    "@reduxjs/toolkit": "1.6.2",
     "@svgr/webpack": "6.2.0",
     "axios": "0.24.0",
     "classnames": "2.3.1",
@@ -43,7 +41,6 @@
     "react-hook-form": "7.19.5",
     "react-modal": "3.14.4",
     "react-paginate": "8.0.1",
-    "react-redux": "7.2.6",
     "react-select": "5.2.1",
     "socket.io-client": "4.4.0",
     "yup": "0.32.11"

@@ -1,11 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 
-import useToast from 'hooks/use-toast';
-
-import store from 'resources/store';
-
-import ToastProvider from 'components/Toast/ToastProvider';
 import Button from 'components/Button';
 
 import FileUpload from './FileUpload';
@@ -64,19 +58,13 @@ export default {
   },
   decorators: [
     (Story) => (
-      <Provider store={store}>
-        <Story />
-        <ToastProvider />
-      </Provider>
+      <Story />
     ),
   ],
 };
 
 const Template = (args) => {
-  const { toastSuccess } = useToast();
-
   const handleSubmit = (event, allFiles) => {
-    toastSuccess('File(s) successfully uploaded, check console logs');
     // eslint-disable-next-line no-console
     console.log(allFiles);
   };
