@@ -1,0 +1,20 @@
+{
+  "name": "b2b-onboarding-supabase",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Paralect",
+  "license": "MIT",
+  "keywords": [
+    "supabase",
+    "next",
+    "paralect"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prlct/mvp-20"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@supabase/supabase-js": "^1.29.4"
+  }
+}
