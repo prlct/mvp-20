@@ -12,6 +12,8 @@ import Button from 'components/Button';
 import Link from 'components/Link';
 import MemoCard from 'components/MemoCard';
 
+import { supabase } from '../../../../b2b-onboarding-supabase/utils/supabaseClient';
+
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
@@ -31,9 +33,11 @@ const SignIn = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      // TODO: sign in
+      const { error } = await supabase.auth.signIn({ email: data.username });
+      if (error) throw error;
+      alert('Check your email for the login link!');
     } catch (e) {
-      console.log('sign in error: ', e);
+      alert(e.error_description || e.message);
     } finally {
       setLoading(false);
     }
