@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "public/*": ["../public/*"]
+      "public/*": ["../public/*"],
+      "b2b-onboarding-supabase/*": ["../../b2b-onboarding-supabase/*"]
     }
   }
 }

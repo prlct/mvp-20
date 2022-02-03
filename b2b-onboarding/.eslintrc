@@ -18,7 +18,7 @@
   "rules": {
     // solve problem with public folder
     "import/no-unresolved": [2,
-      { "ignore": ["public"] }
+      { "ignore": ["public", "b2b-onboarding-supabase"] }
     ],
     "react/prop-types": "error",
     "import/prefer-default-export": "off",

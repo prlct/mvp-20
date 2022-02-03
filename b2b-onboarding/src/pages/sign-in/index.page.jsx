@@ -12,7 +12,7 @@ import Button from 'components/Button';
 import Link from 'components/Link';
 import MemoCard from 'components/MemoCard';
 
-import { supabase } from '../../../../b2b-onboarding-supabase/utils/supabaseClient';
+import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
 
 import styles from './styles.module.css';
 
