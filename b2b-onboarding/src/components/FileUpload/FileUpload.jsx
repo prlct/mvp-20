@@ -1,4 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {
+  memo, useEffect, useState, useImperativeHandle,
+} from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -17,7 +19,7 @@ const sizes = {
   m: styles.m,
 };
 
-const FileUpload = ({
+const FileUpload = React.forwardRef(({
   size,
   _error,
   maxFiles,
@@ -26,9 +28,17 @@ const FileUpload = ({
   setDocumentsCount,
   getUploadParams,
   className,
-}) => {
+}, ref) => {
   const [error, setError] = useState({});
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
+  const [files, setFiles] = useState([]);
+
+  useImperativeHandle(ref, () => ({
+    getAllFiles() {
+      return files;
+    },
+  }));
 
   useEffect(() => {
     if (_error) setError(_error);
@@ -55,7 +65,10 @@ const FileUpload = ({
         break;
       }
       case 'done': {
-        if (allFiles.some((f) => f.meta.status !== 'done' || f.meta.status !== 'error_upload_params')) setSubmitButtonDisabled(false);
+        if (allFiles.some((f) => f.meta.status !== 'done' || f.meta.status !== 'error_upload_params')) {
+          setSubmitButtonDisabled(false);
+          setFiles((old) => [...old, file]);
+        }
         break;
       }
       case 'error_upload_params': {
@@ -82,6 +95,7 @@ const FileUpload = ({
         getUploadParams={getUploadParams}
         onSubmit={handleSubmit}
         onChangeStatus={handleChangeStatus}
+        onDrop
         getFilesFromEvent={getFilesFromEvent}
         SubmitButtonComponent={SubmitButtonComponent}
         PreviewComponent={(props) => <Preview {...props} />}
@@ -93,7 +107,7 @@ const FileUpload = ({
       />
     </div>
   );
-};
+});
 
 FileUpload.propTypes = {
   size: PropTypes.string,

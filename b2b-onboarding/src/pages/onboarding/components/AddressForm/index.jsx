@@ -18,8 +18,16 @@ const schema = yup.object().shape({
 });
 
 const AddressForm = ({ onSubmit }) => {
-  const onFormSubmit = useCallback(() => {
-    onSubmit();
+  const onFormSubmit = useCallback((data) => {
+    onSubmit({
+      address: {
+        line1: data.addressLine1,
+        line2: data.addressLine2,
+        city: data.city,
+        state: data.state,
+        zip: data.zip,
+      },
+    });
   }, [onSubmit]);
 
   const {

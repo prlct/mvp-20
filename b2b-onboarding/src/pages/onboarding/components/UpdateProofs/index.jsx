@@ -1,4 +1,6 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, {
+  useState, useCallback, memo, createRef, useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import {} from 'public/icons';
@@ -12,11 +14,18 @@ import styles from './styles.module.css';
 const checkboxes = ['Kitchen remodel', 'Upgraded Flooring', 'New windows'];
 
 const UpdateProofs = ({ onPressNext }) => {
+  const [uploadersRefs, setUploadersRefs] = useState([]);
   const [checkboxesData, setCheckboxesData] = useState(checkboxes.map((label) => ({
     label,
     checked: true,
     imageData: null,
   })));
+
+  useEffect(() => {
+    setUploadersRefs((elRefs) => Array(checkboxes.length)
+      .fill()
+      .map((_, i) => elRefs[i] || createRef()));
+  }, []);
 
   const onCheckboxChange = useCallback((label) => {
     setCheckboxesData(checkboxesData.map((checkbox) => {
@@ -29,6 +38,20 @@ const UpdateProofs = ({ onPressNext }) => {
     }));
   }, [checkboxesData]);
 
+  const getAllUploadedFiles = useCallback(() => uploadersRefs.reduce((acc, ref) => {
+    const files = ref.current.getAllFiles();
+
+    return [...acc, ...files];
+  }, []), [uploadersRefs]);
+
+  const onGoNext = useCallback(() => {
+    const uploadedFiles = getAllUploadedFiles();
+
+    onPressNext({
+      changesFiles: uploadedFiles.map(({ file }) => file),
+    });
+  }, [getAllUploadedFiles, onPressNext]);
+
   return (
     <div className={styles.wrapper}>
       <h2>Upload proof of updates</h2>
@@ -38,7 +61,7 @@ const UpdateProofs = ({ onPressNext }) => {
       </p>
 
       <div>
-        {checkboxesData.map((checkboxData) => (
+        {checkboxesData.map((checkboxData, index) => (
           <div key={checkboxData.label} className={styles.checkbox}>
             <Checkbox
               name={checkboxData.label}
@@ -48,7 +71,10 @@ const UpdateProofs = ({ onPressNext }) => {
             />
             {checkboxData.checked && (
             <div className={styles.fileUploaderContainer}>
-              <FileUpload className={styles.fileUploader} />
+              <FileUpload
+                ref={uploadersRefs[index]}
+                className={styles.fileUploader}
+              />
             </div>
             )}
           </div>
@@ -57,7 +83,7 @@ const UpdateProofs = ({ onPressNext }) => {
 
       <Button
         className={styles.button}
-        onClick={onPressNext}
+        onClick={onGoNext}
       >
         Save changes
       </Button>

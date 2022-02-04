@@ -31,6 +31,7 @@
   padding-left: 16px;
   box-shadow: 0 4px 8px rgb(16 24 64 / 8%);
   border-radius: 6px;
+  cursor: pointer;
 
   & p {
     color: #474D66;
@@ -43,6 +44,10 @@
   &:nth-child(2) {
     margin: 0 20px;
   }
+}
+
+.selectedActionItem {
+  border: 1px solid var(--primary);
 }
 
 .icon svg {

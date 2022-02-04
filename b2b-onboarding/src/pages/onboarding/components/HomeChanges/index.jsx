@@ -31,6 +31,12 @@ const HomeChanges = ({ onPressNext }) => {
     }));
   }, [checkboxesData]);
 
+  const onGoNext = useCallback(() => {
+    onPressNext({
+      changes: checkboxesData.filter((checkbox) => checkbox.checked).map((c) => c.label),
+    });
+  }, [onPressNext, checkboxesData]);
+
   return (
     <div className={styles.wrapper}>
       <h2>Have you made any of the following changes to your home?</h2>
@@ -51,7 +57,7 @@ const HomeChanges = ({ onPressNext }) => {
 
       <Button
         className={styles.button}
-        onClick={onPressNext}
+        onClick={onGoNext}
       >
         Save changes
       </Button>

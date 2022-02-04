@@ -17,7 +17,7 @@ import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
-  username: yup.string().required('Username incorrect.'),
+  username: yup.string().max(64).email('Username format is incorrect.').required('Field is required.'),
   password: yup.string().required('Password incorrect.'),
 });
 
@@ -33,9 +33,12 @@ const SignIn = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({ email: data.username });
+
+      const { error } = await supabase.auth.signIn({
+        email: data.username,
+        password: data.password,
+      });
       if (error) throw error;
-      alert('Check your email for the login link!');
     } catch (e) {
       alert(e.error_description || e.message);
     } finally {

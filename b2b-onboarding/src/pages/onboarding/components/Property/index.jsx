@@ -35,7 +35,7 @@ const Property = ({ onPressNext }) => (
       </Button>
       <Button
         className={styles.button}
-        onClick={onPressNext}
+        onClick={() => onPressNext({})}
       >
         Yes, continue
       </Button>
