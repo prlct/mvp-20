@@ -12,8 +12,6 @@ import Button from 'components/Button';
 import Link from 'components/Link';
 import MemoCard from 'components/MemoCard';
 
-import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
-
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
@@ -34,13 +32,9 @@ const SignIn = () => {
     try {
       setLoading(true);
 
-      const { error } = await supabase.auth.signIn({
-        email: data.username,
-        password: data.password,
-      });
-      if (error) throw error;
+      // sign in
     } catch (e) {
-      alert(e.error_description || e.message);
+      console.log(e);
     } finally {
       setLoading(false);
     }

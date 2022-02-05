@@ -13,8 +13,6 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import Link from 'components/Link';
 
-import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
-
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
@@ -80,25 +78,9 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      const { user, session, error } = await supabase.auth.signUp(
-        {
-          email: data.email,
-          password: data.password,
-        },
-        {
-          data: {
-            firstName: data.firstName,
-            lastName: data.lastName,
-          },
-        },
-      );
-      if (error) throw error;
-
-      if (!session) {
-        // redirect to confirm email screen
-      }
+      // sign up
     } catch (e) {
-      alert(e.error_description || e.message);
+      console.log(e);
     } finally {
       setLoading(false);
     }

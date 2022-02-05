@@ -1,0 +1,59 @@
+.link {
+  max-width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.15s;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &:not(.withoutUnderline) {
+    .text {
+      text-decoration: underline;
+    }
+  }
+}
+
+.icon,
+.text {
+  transition: inherit;
+}
+
+.l {
+  max-height: 24px;
+
+  .text {
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .icon {
+    transform: scale(1.2) translateX(-1px);
+  }
+}
+
+.m {
+  max-height: 20px;
+
+  .text {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.s {
+  max-height: 16px;
+
+  .text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .icon {
+    transform: scale(0.8) translateX(2px);
+  }
+}

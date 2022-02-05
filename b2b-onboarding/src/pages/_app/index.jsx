@@ -2,26 +2,25 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
-
 import PageConfig from './PageConfig';
 
 import 'styles/globals.css';
 
 const App = ({ Component, pageProps }) => {
-  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // add await
-    // const { error } = supabase.auth.signOut();
-    setSession(supabase.auth.session());
+    async function init() {
+      try {
+        // TODO: get current user
+      } catch (error) {
+        // @todo: add something like sentry
+      } finally {
+        setLoading(false);
+      }
+    }
 
-    supabase.auth.onAuthStateChange((_event, fetchedSession) => {
-      setSession(fetchedSession);
-    });
-
-    setLoading(false);
+    init();
   }, []);
 
   if (loading) return null;
@@ -31,7 +30,7 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <title>Ship</title>
       </Head>
-      <PageConfig session={session}>
+      <PageConfig>
         <Component {...pageProps} />
       </PageConfig>
     </>

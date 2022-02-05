@@ -5,8 +5,6 @@ import cn from 'classnames';
 
 import Logo from 'public/images/logo.svg';
 
-import { supabase } from 'b2b-onboarding-supabase/utils/supabaseClient';
-
 import SelectAction from './components/SelectAction';
 import AddressForm from './components/AddressForm';
 import Property from './components/Property';
@@ -19,8 +17,6 @@ import RealtorImg from './images/realtor.png';
 import styles from './styles.module.css';
 
 const Onboarding = () => {
-  const user = supabase.auth.user();
-
   const [activeStep, setActiveStep] = useState({ stepIndex: 0, substepIndex: 0 });
   const [onboardingData, setOnboardingData] = useState({
     firstName: null,
@@ -70,34 +66,17 @@ const Onboarding = () => {
       // upload files
       if (updatedOnboardingData.changesFiles.length) {
         await Promise.all(updatedOnboardingData.changesFiles.map(async (file) => {
-          const { error: uploadError } = await supabase.storage
-            .from('houses-images')
-            .upload(`${user.id}/${file.name}`, file);
-          if (uploadError) throw uploadError;
+          // upload files to bucket
         }));
       }
 
       // update user
-      const { error } = await supabase.auth.update({
-        data: {
-          firstName: updatedOnboardingData.firstName,
-          lastName: updatedOnboardingData.lastName,
-          houseInfo: {
-            interestedIn: updatedOnboardingData.interestedIn,
-            address: updatedOnboardingData.address,
-            changes: updatedOnboardingData.changes,
-            homeExpectations: updatedOnboardingData.homeExpectations,
-            changesFilesUrls: updatedOnboardingData.changesFiles.map((file) => `${user.id}/${file.name}`),
-          },
-        },
-      });
-      if (error) throw error;
     } catch (e) {
-      alert(e.error_description || e.message);
+      console.log(e);
     }
 
     updateOnboardingData(data);
-  }, [user, onboardingData, updateOnboardingData]);
+  }, [onboardingData, updateOnboardingData]);
 
   const stepsContent = useMemo(() => {
     const stepsByInterest = onboardingData.interestedIn === 'Selling'

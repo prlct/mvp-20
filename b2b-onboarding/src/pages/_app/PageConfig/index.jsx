@@ -22,19 +22,21 @@ const scopeToComponent = {
   [routes.scope.NONE]: ({ children }) => children,
 };
 
-const PageConfig = ({ children, session }) => {
+const PageConfig = ({ children }) => {
   const router = useRouter();
+
+  const user = null;
 
   const page = routes.configurations.find((r) => r.path === router.route);
   const Layout = layoutToComponent[page.layout];
   const Scope = scopeToComponent[page.scope];
 
-  if (page.scope === routes.scope.PRIVATE && !session) {
+  if (page.scope === routes.scope.PRIVATE && !user) {
     router.push(routes.path.signIn);
     return null;
   }
 
-  if (page.scope === routes.scope.PUBLIC && session) {
+  if (page.scope === routes.scope.PUBLIC && user) {
     router.push(routes.path.onboarding);
     return null;
   }
@@ -50,7 +52,6 @@ const PageConfig = ({ children, session }) => {
 
 PageConfig.propTypes = {
   children: PropTypes.node.isRequired,
-  session: PropTypes.shape().isRequired,
 };
 
 export default PageConfig;
