@@ -26,7 +26,7 @@ const Button = ({
   withIcon, loading, disabled, className,
 }) => (
   <button
-      // eslint-disable-next-line react/button-has-type
+    // eslint-disable-next-line react/button-has-type
     type={htmlType}
     onClick={onClick}
     className={cn(

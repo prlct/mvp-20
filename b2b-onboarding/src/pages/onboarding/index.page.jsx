@@ -12,6 +12,9 @@ import AddressForm from './components/AddressForm';
 import Property from './components/Property';
 import HomeChanges from './components/HomeChanges';
 import UpdateProofs from './components/UpdateProofs';
+import HomeExprectations from './components/HomeExpectations';
+
+import RealtorImg from './images/realtor.png';
 
 import styles from './styles.module.css';
 
@@ -20,6 +23,8 @@ const Onboarding = () => {
 
   const [activeStep, setActiveStep] = useState({ stepIndex: 0, substepIndex: 0 });
   const [onboardingData, setOnboardingData] = useState({
+    firstName: null,
+    lastName: null,
     interestedIn: null,
     address: {
       line1: null,
@@ -28,28 +33,38 @@ const Onboarding = () => {
       state: null,
       zip: null,
     },
+    homeExpectations: {
+      field1: null,
+      field2: null,
+      field3: null,
+      field4: null,
+      field5: null,
+    },
     changes: [],
     changesFiles: [],
   });
 
-  const toNextSubstep = useCallback((data) => {
+  const updateOnboardingData = useCallback((data) => {
     setOnboardingData({
       ...onboardingData,
       ...data,
     });
+  }, [onboardingData]);
+
+  const toNextSubstep = useCallback((data) => {
+    updateOnboardingData(data);
 
     setActiveStep((oldActiveStep) => ({
       ...oldActiveStep,
       substepIndex: oldActiveStep.substepIndex + 1,
     }));
-  }, [onboardingData]);
+  }, [updateOnboardingData]);
 
   const onSaveUserData = useCallback(async (data) => {
     const updatedOnboardingData = {
       ...onboardingData,
       ...data,
     };
-    setOnboardingData(updatedOnboardingData);
 
     try {
       // upload files
@@ -65,10 +80,13 @@ const Onboarding = () => {
       // update user
       const { error } = await supabase.auth.update({
         data: {
+          firstName: updatedOnboardingData.firstName,
+          lastName: updatedOnboardingData.lastName,
           houseInfo: {
             interestedIn: updatedOnboardingData.interestedIn,
             address: updatedOnboardingData.address,
             changes: updatedOnboardingData.changes,
+            homeExpectations: updatedOnboardingData.homeExpectations,
             changesFilesUrls: updatedOnboardingData.changesFiles.map((file) => `${user.id}/${file.name}`),
           },
         },
@@ -77,37 +95,59 @@ const Onboarding = () => {
     } catch (e) {
       alert(e.error_description || e.message);
     }
-  }, [user, onboardingData]);
 
-  const stepsContent = useMemo(() => ([
-    {
-      id: 1,
-      title: 'In progress',
-      substeps: [
-        <SelectAction key="selectAction" onPressNext={toNextSubstep} />,
+    updateOnboardingData(data);
+  }, [user, onboardingData, updateOnboardingData]);
+
+  const stepsContent = useMemo(() => {
+    const stepsByInterest = onboardingData.interestedIn === 'Selling'
+      ? [
         <AddressForm key="addressForm" onSubmit={toNextSubstep} />,
         <Property key="property" onPressNext={toNextSubstep} />,
         <HomeChanges key="homeChanges" onPressNext={toNextSubstep} />,
         <UpdateProofs key="updateProofs" onPressNext={onSaveUserData} />,
-      ],
-    },
-    {
-      id: 2,
-      title: 'Next step',
-      substeps: [null],
-    },
-    {
-      id: 3,
-      title: 'Next step',
-      substeps: [null],
-    },
-  ]), [toNextSubstep, onSaveUserData]);
+      ]
+      : [
+        <HomeExprectations key="homeExpectations" onPressNext={toNextSubstep} />,
+        <HomeChanges key="homeChanges" onPressNext={onSaveUserData} />, // TODO: edit title
+      ];
+
+    return [
+      {
+        id: 1,
+        title: 'In progress',
+        substeps: [
+          <SelectAction key="selectAction" onPressNext={toNextSubstep} />,
+          ...stepsByInterest,
+        ],
+      },
+      {
+        id: 2,
+        title: 'Next step',
+        substeps: [null],
+      },
+      {
+        id: 3,
+        title: 'Next step',
+        substeps: [null],
+      },
+    ];
+  }, [toNextSubstep, onSaveUserData, onboardingData.interestedIn]);
 
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
-        <Logo className={styles.logo} />
-        <p>HomeBase</p>
+        <div className={styles.logoContainer}>
+          <Logo className={styles.logo} />
+          <p>WellNest</p>
+        </div>
+        <div className={styles.realtorContainer}>
+          <img src={RealtorImg} alt="realtor" />
+          <div>
+            <p>Diana Smith</p>
+            <p>Realtor® | Sunshine Brokers</p>
+          </div>
+        </div>
       </header>
 
       <main className={styles.content}>

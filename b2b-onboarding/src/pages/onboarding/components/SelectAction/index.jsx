@@ -1,67 +1,119 @@
 import React, { useState, memo, useCallback } from 'react';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
-
-import { KeyIcon, HomeIcon, RefreshHomeIcon } from 'public/icons';
+import Head from 'next/head';
 
 import Button from 'components/Button';
+import Input from 'components/Input';
+import Checkbox from 'components/Checkbox';
 
 import styles from './styles.module.css';
+
+const schema = yup.object().shape({
+  firstName: yup.string().max(100).required('Field is required.'),
+  lastName: yup.string().max(100).required('Field is required.'),
+});
 
 const ACTIONS = [
   {
     id: 1,
-    title: 'Buy a home',
-    icon: KeyIcon,
+    title: 'Buying',
   },
   {
     id: 2,
-    title: 'Sell a home',
-    icon: HomeIcon,
+    title: 'Selling',
   },
   {
     id: 3,
-    title: 'Both',
-    icon: RefreshHomeIcon,
+    title: 'Buying and selling',
+  },
+  {
+    id: 4,
+    title: 'Other',
   },
 ];
 
 const SelectAction = ({ onPressNext }) => {
   const [selectedAction, setSelectedAction] = useState(ACTIONS[0]);
 
-  const onGoNext = useCallback(() => {
-    onPressNext({ interestedIn: selectedAction.title });
+  const {
+    handleSubmit, formState: { errors }, control,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmitData = useCallback((data) => {
+    onPressNext({
+      firstName: data.title,
+      lastName: data.lastName,
+      interestedIn: selectedAction.title,
+    });
   }, [onPressNext, selectedAction.title]);
 
   return (
-    <div className={styles.wrapper}>
-      <h2>Which of the following are you interested in?</h2>
-      <p>Select which one of the following to describe what you would like to accomplish.</p>
+    <>
+      <Head>
+        <title>Onboarding</title>
+      </Head>
+      <div className={styles.wrapper}>
+        <h2>Tell me about yourself</h2>
+        <p>
+          This information will not be shared with anyone and
+          will only be used for your agent to contact you.
+        </p>
 
-      <div className={styles.actions}>
-        {ACTIONS.map((item) => (
-          <div
-            key={item.id}
-            className={cn(
-              styles.actionItem,
-              selectedAction.id === item.id && styles.selectedActionItem,
-            )}
-            onClick={() => setSelectedAction(item)}
-            aria-hidden
-          >
-            <p>{item.title}</p>
-            <div className={styles.icon}>{item.icon()}</div>
+        <form
+          onSubmit={handleSubmit(onSubmitData)}
+          className={styles.form}
+        >
+          <Input
+            name="firstName"
+            placeholder="First Name"
+            control={control}
+            error={errors.firstName}
+            className={styles.input}
+          />
+
+          <Input
+            name="lastName"
+            placeholder="Last Name"
+            control={control}
+            error={errors.firstName}
+            className={styles.input}
+          />
+
+          <Input
+            value="example@gmail.com"
+            name="email"
+            placeholder="Email Address"
+            className={styles.input}
+            disabled
+          />
+
+          <div className={styles.actions}>
+            <p>I am interested in:</p>
+            {ACTIONS.map((item) => (
+              <Checkbox
+                key={item.id}
+                className={styles.actionItem}
+                checked={selectedAction.id === item.id}
+                onChange={() => setSelectedAction(item)}
+                text={item.title}
+              />
+            ))}
           </div>
-        ))}
-      </div>
 
-      <Button
-        className={styles.button}
-        onClick={onGoNext}
-      >
-        Next
-      </Button>
-    </div>
+          <Button
+            className={styles.button}
+            htmlType="submit"
+          >
+            Next
+          </Button>
+        </form>
+      </div>
+    </>
   );
 };
 

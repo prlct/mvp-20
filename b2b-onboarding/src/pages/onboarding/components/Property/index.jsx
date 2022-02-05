@@ -10,7 +10,10 @@ import styles from './styles.module.css';
 const Property = ({ onPressNext }) => (
   <div className={styles.wrapper}>
     <h2>Is this your property?</h2>
-    <p>Review the following listing</p>
+    <p>
+      Please review the following listing to determine
+      if this is the home you would like to list.
+    </p>
 
     <div className={styles.houseContainer}>
       <img src={HouseImage} alt="house" />

@@ -40,7 +40,7 @@ const HomeChanges = ({ onPressNext }) => {
   return (
     <div className={styles.wrapper}>
       <h2>Have you made any of the following changes to your home?</h2>
-      <p>Select all that apply from the list below</p>
+      <p>Please indicate any changes you have made to your home.</p>
 
       <div className={styles.checkboxesContainer}>
         {checkboxesData.map((checkboxData) => (

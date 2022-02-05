@@ -10,25 +10,25 @@ import Button from 'components/Button';
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
-  addressLine1: yup.string().required('Field is required.'),
-  addressLine2: yup.string().required('Field is required.'),
-  city: yup.string().required('Field is required.'),
-  state: yup.string().required('Field is required.'),
-  zip: yup.string().required('Field is required.'),
+  field1: yup.string().required('Field is required.'),
+  field2: yup.string().required('Field is required.'),
+  field3: yup.string().required('Field is required.'),
+  field4: yup.string().required('Field is required.'),
+  field5: yup.string().required('Field is required.'),
 });
 
-const AddressForm = ({ onSubmit }) => {
+const HomeExprectations = ({ onPressNext }) => {
   const onFormSubmit = useCallback((data) => {
-    onSubmit({
-      address: {
-        line1: data.addressLine1,
-        line2: data.addressLine2,
-        city: data.city,
-        state: data.state,
-        zip: data.zip,
+    onPressNext({
+      homeExpectations: {
+        field1: data.field1,
+        field2: data.field2,
+        field3: data.field3,
+        field4: data.field4,
+        field5: data.field5,
       },
     });
-  }, [onSubmit]);
+  }, [onPressNext]);
 
   const {
     handleSubmit, formState: { errors }, control,
@@ -38,50 +38,40 @@ const AddressForm = ({ onSubmit }) => {
 
   return (
     <div className={styles.wrapper}>
-      <h2>What is the address of the property you would like to sell?</h2>
+      <h2>What are you looking for in your next home?</h2>
 
       <form
         onSubmit={handleSubmit(onFormSubmit)}
         className={styles.form}
       >
         <Input
-          name="addressLine1"
-          label="Address Line 1"
-          placeholder="Placeholder"
+          name="field1"
           control={control}
-          error={errors.addressLine1}
+          error={errors.field1}
           className={styles.input}
         />
         <Input
-          name="addressLine2"
-          label="Address Line 2"
-          placeholder="Placeholder"
+          name="field2"
           control={control}
-          error={errors.addressLine2}
+          error={errors.field2}
           className={styles.input}
         />
         <Input
-          name="city"
-          label="City"
-          placeholder="Placeholder"
+          name="field3"
           control={control}
-          error={errors.city}
+          error={errors.field3}
           className={styles.input}
         />
         <div className={styles.stateAndZipContainer}>
           <Input
-            name="state"
-            label="State"
-            placeholder="Placeholder"
+            name="field4"
             control={control}
-            error={errors.state}
+            error={errors.field4}
           />
           <Input
-            name="zip"
-            label="Zip"
-            placeholder="Placeholder"
+            name="field5"
             control={control}
-            error={errors.zip}
+            error={errors.field5}
           />
         </div>
 
@@ -95,7 +85,7 @@ const AddressForm = ({ onSubmit }) => {
         <Button
           type="link"
           className={styles.linkButton}
-          onClick={onSubmit}
+          onClick={onPressNext}
         >
           Skip Step
         </Button>
@@ -104,8 +94,8 @@ const AddressForm = ({ onSubmit }) => {
   );
 };
 
-AddressForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+HomeExprectations.propTypes = {
+  onPressNext: PropTypes.func.isRequired,
 };
 
-export default memo(AddressForm);
+export default memo(HomeExprectations);

@@ -18,9 +18,6 @@ import ArchiveIcon from './archive.svg';
 import ShowPasswordIcon from './show-password.svg';
 import HidePasswordIcon from './hide-password.svg';
 import TrashIcon from './trash.svg';
-import KeyIcon from './key.svg';
-import HomeIcon from './home.svg';
-import RefreshHomeIcon from './refresh-home.svg';
 
 import AttachmentIcon from './attachment.svg';
 import CloseSmallIcon from './close-small.svg';
@@ -67,7 +64,4 @@ export {
   PenIcon,
   ShipLogo,
   FileUploadIcon,
-  KeyIcon,
-  HomeIcon,
-  RefreshHomeIcon,
 };

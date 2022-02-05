@@ -33,3 +33,23 @@
   width: 50%;
   margin-bottom: 16px;
 }
+
+@media screen and (max-width: 770px) {
+  .wrapper {
+    & > h2,
+    > p {
+      text-align: center;
+    }
+  }
+
+  .wrapper > p {
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .checkbox {
+    width: 100%;
+  }
+}

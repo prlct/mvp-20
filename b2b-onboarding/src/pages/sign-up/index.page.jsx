@@ -1,8 +1,9 @@
+import { useEffect, useState, useCallback } from 'react';
 import * as yup from 'yup';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
+import cn from 'classnames';
 
 import { path } from 'pages/routes';
 
@@ -26,21 +27,56 @@ const schema = yup.object().shape({
   ),
 });
 
-const passwordRules = ['Be a minimum of six characters', 'Have at least one capital letter', 'Have at least one number'];
+const passwordRules = [
+  {
+    title: 'Be a minimum of six characters',
+    done: false,
+  },
+  {
+    title: 'Have at least one capital letter',
+    done: false,
+  },
+  {
+    title: 'Have at least one number',
+    done: false,
+  },
+];
 
 const SignUp = () => {
-  const [values, setValues] = useState({});
-  const [registered, setRegistered] = useState(false);
+  const [passwordValue, setPasswordValue] = useState('');
+  const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+
+  const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const updatedPasswordRulesData = [...passwordRules];
+
+    updatedPasswordRulesData[0].done = passwordValue.length >= 6;
+    updatedPasswordRulesData[1].done = /[A-Z]/.test(passwordValue);
+    updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
+
+    setPasswordRulesData(updatedPasswordRulesData);
+  }, [passwordValue]);
+
   const {
-    handleSubmit, setError, formState: { errors }, control,
+    handleSubmit, setError, formState: { errors }, control, getValues,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const onConfirmPasswordChange = useCallback((value) => {
+    setConfirmPasswordValue(value);
+    setConfirmPasswordError(null);
+  }, []);
+
   const onSubmit = async (data) => {
+    if (confirmPasswordValue !== passwordValue) {
+      setConfirmPasswordError('Passwords doesn\'t match');
+    }
+
     try {
       setLoading(true);
 
@@ -61,34 +97,12 @@ const SignUp = () => {
       if (!session) {
         // redirect to confirm email screen
       }
-
-      setRegistered(true);
-      setValues(data);
     } catch (e) {
       alert(e.error_description || e.message);
     } finally {
       setLoading(false);
     }
   };
-
-  if (registered) {
-    return (
-      <>
-        <Head>
-          <title>Sign up</title>
-        </Head>
-        <div className={styles.registeredContainer}>
-          <h2>Thanks!</h2>
-          <div className={styles.registeredDescription}>
-            Please follow the instructions from the email to complete a sign up process.
-            We sent an email with a confirmation link to
-            {' '}
-            <b>{values.email}</b>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -97,7 +111,7 @@ const SignUp = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.title}>
-          <h2>Sign Up</h2>
+          <h2>Create a free account</h2>
           <div className={styles.line} />
         </div>
 
@@ -130,17 +144,26 @@ const SignUp = () => {
             type="password"
             placeholder="Your password"
             control={control}
+            onChange={setPasswordValue}
             error={errors.password}
+          />
+          <Input
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            control={control}
+            onChange={onConfirmPasswordChange}
+            error={confirmPasswordError && { message: confirmPasswordError }}
           />
           <div className={styles.passwordRulesWrapper}>
             <p>Password must:</p>
             <div>
-              {passwordRules.map((text) => (
-                <div key={text} className={styles.passwordRulesItem}>
-                  <div className={styles.checkmark}>
-                    <CheckMarkIcon className={styles.checkmarkIcon} />
+              {passwordRulesData.map((ruleData) => (
+                <div key={ruleData.title} className={styles.passwordRulesItem}>
+                  <div className={cn(styles.checkmark, ruleData.done && styles.activeCheckmark)}>
+                    {ruleData.done && <CheckMarkIcon className={styles.checkmarkIcon} />}
                   </div>
-                  <p>{text}</p>
+                  <p>{ruleData.title}</p>
                 </div>
               ))}
             </div>

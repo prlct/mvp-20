@@ -16,6 +16,7 @@
 .button {
   width: 100%;
   margin-top: 32px;
+  height: 44px;
 }
 
 .description {
@@ -48,8 +49,6 @@
 }
 
 .title {
-  width: 82px;
-
   h2 {
     font-size: 20px;
     line-height: 24px;
@@ -59,7 +58,7 @@
 }
 
 .line {
-  width: 100%;
+  width: 82px;
   height: 2px;
   background-color: var(--primary);
   margin-top: 9px;
@@ -90,7 +89,12 @@
   height: 16px;
   margin-right: 12px;
   border-radius: 100%;
+  border: 2px solid #8F95B2;
+}
+
+.activeCheckmark {
   background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .checkmarkIcon {

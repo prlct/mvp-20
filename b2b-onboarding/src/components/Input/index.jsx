@@ -30,7 +30,7 @@ const InputControlled = ({
         value={value}
         onChange={(e) => {
           controllerOnChange(e.target.value);
-          if (props.onChange) props.onChange(e);
+          if (props.onChange) props.onChange(e.target.value);
         }}
         onBlur={onBlur}
         ref={ref}
