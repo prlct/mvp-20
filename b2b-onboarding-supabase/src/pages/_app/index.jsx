@@ -13,8 +13,6 @@ const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // add await
-    // const { error } = supabase.auth.signOut();
     setSession(supabase.auth.session());
 
     supabase.auth.onAuthStateChange((_event, fetchedSession) => {

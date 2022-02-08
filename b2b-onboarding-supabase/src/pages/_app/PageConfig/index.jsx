@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -24,19 +25,36 @@ const scopeToComponent = {
 
 const PageConfig = ({ children, session }) => {
   const router = useRouter();
+  const [redirectPath, setRedirectPath] = useState(null);
 
   const page = routes.configurations.find((r) => r.path === router.route);
   const Layout = layoutToComponent[page.layout];
   const Scope = scopeToComponent[page.scope];
 
-  if (page.scope === routes.scope.PRIVATE && !session) {
-    router.push(routes.path.signIn);
-    return null;
+  if (redirectPath && session) {
+    router.push(redirectPath);
+    setRedirectPath(null);
   }
 
-  if (page.scope === routes.scope.PUBLIC && session) {
-    router.push(routes.path.onboarding);
-    return null;
+  // invited user
+  if (router.asPath.includes('token')
+  && router.asPath.includes('type=invite')
+  && !session
+  && !redirectPath) {
+    setRedirectPath(routes.path.onboarding);
+  }
+
+  // user confirmed email (session will be updated)
+  if (!router.asPath.includes('access_token')) {
+    if (page.scope === routes.scope.PRIVATE && !session) {
+      router.push(routes.path.signIn);
+      return null;
+    }
+
+    if (page.scope === routes.scope.PUBLIC && session) {
+      router.push(routes.path.home);
+      return null;
+    }
   }
 
   return (

@@ -7,12 +7,12 @@ import Head from 'next/head';
 
 import { path } from 'pages/routes';
 
+import * as userService from 'resources/user/user.service';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Link from 'components/Link';
 import MemoCard from 'components/MemoCard';
-
-import { supabase } from 'utils/supabaseClient';
 
 import styles from './styles.module.css';
 
@@ -23,7 +23,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
   const {
-    handleSubmit, formState: { errors }, setError, control,
+    handleSubmit, formState: { errors }, control,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -34,11 +34,10 @@ const SignIn = () => {
     try {
       setLoading(true);
 
-      const { error } = await supabase.auth.signIn({
+      await userService.signInByPassword({
         email: data.username,
         password: data.password,
       });
-      if (error) throw error;
     } catch (e) {
       alert(e.error_description || e.message);
     } finally {

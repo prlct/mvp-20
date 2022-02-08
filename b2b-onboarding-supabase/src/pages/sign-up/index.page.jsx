@@ -13,7 +13,9 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import Link from 'components/Link';
 
-import { supabase } from 'utils/supabaseClient';
+import * as userService from 'resources/user/user.service';
+import * as companyService from 'resources/company/company.service';
+import * as profileService from 'resources/profile/profile.service';
 
 import styles from './styles.module.css';
 
@@ -62,7 +64,7 @@ const SignUp = () => {
   }, [passwordValue]);
 
   const {
-    handleSubmit, setError, formState: { errors }, control, getValues,
+    handleSubmit, formState: { errors }, control,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -80,21 +82,23 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      const { user, session, error } = await supabase.auth.signUp(
-        {
-          email: data.email,
-          password: data.password,
-        },
-        {
-          data: {
-            firstName: data.firstName,
-            lastName: data.lastName,
-          },
-        },
-      );
-      if (error) throw error;
+      const { user, session } = await userService.signUp({
+        email: data.email,
+        password: data.password,
+      });
 
+      const company = await companyService.createCompany();
+
+      await profileService.createProfile({
+        userId: user.id,
+        companyId: company.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
+
+      // TODO: fix bug with the same email
       if (!session) {
+        alert('Please confirm your email');
         // redirect to confirm email screen
       }
     } catch (e) {

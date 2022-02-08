@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
+import * as userService from 'resources/user/user.service';
+
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Checkbox from 'components/Checkbox';
@@ -36,6 +38,8 @@ const ACTIONS = [
 ];
 
 const SelectAction = ({ onPressNext }) => {
+  const user = userService.getUser();
+
   const [selectedAction, setSelectedAction] = useState(ACTIONS[0]);
 
   const {
@@ -46,7 +50,7 @@ const SelectAction = ({ onPressNext }) => {
 
   const onSubmitData = useCallback((data) => {
     onPressNext({
-      firstName: data.title,
+      firstName: data.firstName,
       lastName: data.lastName,
       interestedIn: selectedAction.title,
     });
@@ -85,7 +89,7 @@ const SelectAction = ({ onPressNext }) => {
           />
 
           <Input
-            value="example@gmail.com"
+            value={user.email}
             name="email"
             placeholder="Email Address"
             className={styles.input}

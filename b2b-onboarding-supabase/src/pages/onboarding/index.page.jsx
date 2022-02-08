@@ -5,7 +5,9 @@ import cn from 'classnames';
 
 import Logo from 'public/images/logo.svg';
 
-import { supabase } from 'utils/supabaseClient';
+import * as userService from 'resources/user/user.service';
+import * as profileService from 'resources/profile/profile.service';
+import * as storageService from 'resources/storage/storage.service';
 
 import SelectAction from './components/SelectAction';
 import AddressForm from './components/AddressForm';
@@ -19,7 +21,7 @@ import RealtorImg from './images/realtor.png';
 import styles from './styles.module.css';
 
 const Onboarding = () => {
-  const user = supabase.auth.user();
+  const user = userService.getUser();
 
   const [activeStep, setActiveStep] = useState({ stepIndex: 0, substepIndex: 0 });
   const [onboardingData, setOnboardingData] = useState({
@@ -70,28 +72,29 @@ const Onboarding = () => {
       // upload files
       if (updatedOnboardingData.changesFiles.length) {
         await Promise.all(updatedOnboardingData.changesFiles.map(async (file) => {
-          const { error: uploadError } = await supabase.storage
-            .from('houses-images')
-            .upload(`${user.id}/${file.name}`, file);
-          if (uploadError) throw uploadError;
+          await storageService.uploadFile({
+            bucket: 'houses-images',
+            file,
+            path: `${user.id}/${file.name}`,
+          });
         }));
       }
 
-      // update user
-      const { error } = await supabase.auth.update({
-        data: {
-          firstName: updatedOnboardingData.firstName,
-          lastName: updatedOnboardingData.lastName,
-          houseInfo: {
-            interestedIn: updatedOnboardingData.interestedIn,
-            address: updatedOnboardingData.address,
-            changes: updatedOnboardingData.changes,
-            homeExpectations: updatedOnboardingData.homeExpectations,
-            changesFilesUrls: updatedOnboardingData.changesFiles.map((file) => `${user.id}/${file.name}`),
-          },
+      await profileService.createProfile({
+        userId: user.id,
+        companyId: user.user_metadata.company_id,
+        firstName: updatedOnboardingData.firstName,
+        lastName: updatedOnboardingData.lastName,
+        houseInfo: {
+          interestedIn: updatedOnboardingData.interestedIn,
+          address: updatedOnboardingData.address,
+          changes: updatedOnboardingData.changes,
+          homeExpectations: updatedOnboardingData.homeExpectations,
+          changesFilesUrls: updatedOnboardingData.changesFiles.map((file) => `${user.id}/${file.name}`),
         },
       });
-      if (error) throw error;
+
+      await userService.updateUser({});
     } catch (e) {
       alert(e.error_description || e.message);
     }

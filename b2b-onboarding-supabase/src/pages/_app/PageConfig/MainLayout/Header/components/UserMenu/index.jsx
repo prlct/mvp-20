@@ -8,6 +8,8 @@ import { path } from 'pages/routes';
 
 import { useOutsideClick } from 'hooks/use-outside-click';
 
+import * as userService from 'resources/user/user.service';
+
 import Avatar from 'components/Avatar';
 
 import styles from './styles.module.css';
@@ -20,6 +22,7 @@ const UserMenu = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
   const onSignOutClick = useCallback(async () => {
+    await userService.signOut();
   }, []);
 
   const onSettingsClick = useCallback(async () => {
