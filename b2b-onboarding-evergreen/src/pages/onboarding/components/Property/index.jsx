@@ -32,7 +32,7 @@ const Property = ({ onPressNext }) => (
     <div className={styles.buttons}>
       <Button
         className={styles.button}
-        type="secondary"
+        type="minimal"
       >
         No, manually input info
       </Button>

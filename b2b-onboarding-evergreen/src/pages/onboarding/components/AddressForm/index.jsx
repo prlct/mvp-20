@@ -93,7 +93,7 @@ const AddressForm = ({ onSubmit }) => {
         </Button>
 
         <Button
-          type="link"
+          type="minimal"
           className={styles.linkButton}
           onClick={onSubmit}
         >

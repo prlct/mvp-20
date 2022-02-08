@@ -83,7 +83,7 @@ const HomeExprectations = ({ onPressNext }) => {
         </Button>
 
         <Button
-          type="link"
+          type="minimal"
           className={styles.linkButton}
           onClick={onPressNext}
         >

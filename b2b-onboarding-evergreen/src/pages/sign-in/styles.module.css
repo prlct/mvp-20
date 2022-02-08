@@ -39,12 +39,12 @@
 
 .forgotLink {
   position: absolute;
-  bottom: 0;
+  bottom: 2px;
   right: 0;
 }
 
 .forgotPasswordLink {
-  top: 40px;
+  top: 50px;
 }
 
 .title {

@@ -89,7 +89,7 @@ const UpdateProofs = ({ onPressNext }) => {
       </Button>
 
       <Button
-        type="link"
+        type="minimal"
         className={styles.linkButton}
       >
         Skip Step

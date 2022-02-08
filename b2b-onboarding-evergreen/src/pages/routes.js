@@ -41,7 +41,7 @@ export const configuration = {
   },
   onboarding: {
     path: path.onboarding,
-    scope: scope.PRIVATE,
+    scope: scope.PUBLIC,
     layout: layout.NONE,
   },
 };

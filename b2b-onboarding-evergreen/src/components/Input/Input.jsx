@@ -1,6 +1,7 @@
 import React, { useState, forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { TextInputField } from 'evergreen-ui';
 
 import { ShowPasswordIcon, HidePasswordIcon } from 'public/icons';
 
@@ -29,19 +30,10 @@ const Input = forwardRef(({
   };
 
   return (
-    <div className={cn([styles.container], className)}>
-      {label && (
-      <label
-        htmlFor={name}
-        className={cn({
-          [styles.error]: error,
-        }, styles.label)}
-      >
-        {label}
-      </label>
-      )}
+    <div className={className}>
       <div className={styles.inputWrapper}>
-        <input
+        <TextInputField
+          label={label}
           name={name}
           type={currentType}
           placeholder={placeholder}
@@ -56,6 +48,8 @@ const Input = forwardRef(({
             [styles.iconOnRight]: type === 'password' || Icon,
             [styles.iconOnLeft]: Icon && iconPosition === 'left',
           }, styles.input)}
+          isInvalid={error}
+          validationMessage={error?.message}
         />
         <div className={cn({
           [styles.iconOnLeft]: iconPosition === 'left',
@@ -64,7 +58,6 @@ const Input = forwardRef(({
           {getIcon()}
         </div>
       </div>
-      {error && <span className={styles.errorMessage}>{error.message}</span>}
     </div>
   );
 });

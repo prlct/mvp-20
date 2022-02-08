@@ -1,45 +1,19 @@
 import React, { forwardRef, memo } from 'react';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
-
-import { CheckMarkIcon } from 'public/icons/index';
-
-import styles from './Checkbox.module.css';
+import { Checkbox as EvergreenCheckbox } from 'evergreen-ui';
 
 const Checkbox = forwardRef(({
   checked, onChange, name, text, disabled, className,
 }, ref) => (
-  <button
-    type="button"
-    onClick={onChange}
-    className={cn({
-      [styles.disabled]: disabled,
-    }, styles.container, className)}
-  >
-    <input
-      type="checkbox"
-      name={name}
-      ref={ref}
-      checked={checked}
-      onChange={onChange}
-      disabled={disabled}
-      className={styles.input}
-    />
-    <div
-      className={cn({
-        [styles.checked]: checked,
-        [styles.disabled]: disabled,
-      }, styles.checkbox)}
-    >
-      {checked && <CheckMarkIcon />}
-    </div>
-    <label
-      htmlFor="checkbox"
-      className={styles.label}
-    >
-      {text}
-    </label>
-  </button>
+  <EvergreenCheckbox
+    ref={ref}
+    name={name}
+    label={text}
+    checked={checked}
+    disabled={disabled}
+    className={className}
+    onChange={onChange}
+  />
 ));
 
 Checkbox.propTypes = {
