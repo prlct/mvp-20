@@ -1,0 +1,154 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 147px;
+  background-color: var(--onboarding-background);
+}
+
+.content {
+  width: 788px;
+  padding: 70px 138px 126px 103px;
+  background-color: var(--white);
+  box-shadow: 0 4px 8px rgb(16 24 64 / 8%);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 58px;
+  margin-bottom: 54px;
+  color: #474D66;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  color: var(--primary);
+  margin-right: 16px;
+  width: 40px;
+  height: 40px;
+}
+
+.stepsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+
+  & > div:nth-child(2) {
+    margin: 0 24px;
+  }
+}
+
+.stepContainer {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #696F8C;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-color: #EDEFF5;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 8px;
+}
+
+.activeStepContainer {
+  color: var(--primary);
+
+  & .stepNumber {
+    background-color: #D6E0FF;
+    color: #2952CC;
+  }
+}
+
+.realtorContainer {
+  display: none;
+}
+
+@media screen and (max-width: 770px) {
+  .wrapper {
+    background-color: var(--white);
+  }
+
+  .header {
+    height: 97px;
+    position: relative;
+    justify-content: start;
+    background-color: #2952CC;
+    color: var(--white);
+    font-size: 16px;
+    padding-top: 14px;
+  }
+
+  .content {
+    width: unset;
+    padding: 32px 20px;
+    box-shadow: unset;
+  }
+
+  .logoContainer {
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 25px;
+    height: 25px;
+    color: var(--white);
+  }
+
+  .realtorContainer {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: -48px;
+    height: 96px;
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgb(16 24 64 / 8%);
+
+    & img {
+      width: 64px;
+      height: 64px;
+      margin-right: 16px;
+    }
+
+    & p:first-child {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      color: #101840;
+    }
+
+    & p:last-child {
+      font-size: 14px;
+      line-height: 20px;
+      color: #474D66;
+    }
+  }
+
+  .stepsContainer {
+    margin-bottom: 32px;
+  }
+}

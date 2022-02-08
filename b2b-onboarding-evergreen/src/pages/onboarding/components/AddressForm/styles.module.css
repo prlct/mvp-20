@@ -1,0 +1,38 @@
+.wrapper {
+  & h2 {
+    margin-bottom: 24px;
+    color: #474D66;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
+.input {
+  margin-bottom: 16px;
+}
+
+.stateAndZipContainer {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    width: 49%;
+  }
+}
+
+.button {
+  width: 100%;
+  margin-top: 43px;
+  height: 49px;
+}
+
+.linkButton {
+  margin: 22px auto 0;
+}
+
+@media screen and (max-width: 770px) {
+  .wrapper h2 {
+    text-align: center;
+  }
+}

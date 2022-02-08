@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-size: 12px;
+  line-height: 16px;
+  transition: all 0.2s ease-in-out;
+
+  &:focus-within {
+    color: var(--primary);
+
+    .label {
+      &.error {
+        color: var(--error);
+      }
+    }
+
+    .icon {
+      color: var(--primary);
+    }
+  }
+}
+
+.label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #474D66;
+
+  &.error {
+    color: var(--error);
+  }
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.iconWrapper {
+  height: 100%;
+  max-width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  display: flex;
+  align-items: center;
+
+  &.iconOnLeft {
+    left: 8px;
+  }
+}
+
+.icon {
+  color: var(--gray-dark);
+  transition: all 0.2s ease-in-out;
+}
+
+.passwordIcon {
+  color: var(--gray-dark);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.input {
+  height: 32px;
+  width: 100%;
+  padding: 12px 8px;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    border: 1px solid var(--primary);
+  }
+
+  &:disabled {
+    background-color: var(--gray-light);
+  }
+
+  &:hover:not(:focus):not(:disabled) {
+    border: 1px solid var(--gray-dark);
+  }
+
+  &::placeholder {
+    color: var(--secondary);
+  }
+
+  &.error {
+    border-color: var(--error);
+
+    &:focus {
+      border-color: var(--error);
+    }
+
+    &:hover:not(:focus):not(:disabled) {
+      border-color: var(--error);
+    }
+  }
+
+  &.iconOnRight {
+    padding-right: 40px;
+  }
+
+  &.iconOnLeft {
+    padding-left: 40px;
+  }
+}
+
+.errorMessage {
+  margin-top: 2px;
+  color: var(--error);
+  font-size: 12px;
+  line-height: 16px;
+  word-wrap: break-word;
+}
