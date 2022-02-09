@@ -1,5 +1,6 @@
 import { supabase } from 'utils/supabaseClient';
 import * as userService from 'resources/user/user.service';
+import * as profileService from 'resources/profile/profile.service';
 
 export const createCompany = async () => {
   const { data, error } = await supabase
@@ -24,4 +25,17 @@ export const getCurrentUserCompanyId = async () => {
   if (error) throw error;
 
   return data.company_id;
+};
+
+export const getCompanyUsersCount = async () => {
+  const profile = await profileService.getProfile();
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select()
+    .match({ company_id: profile.company_id });
+
+  if (error) throw error;
+
+  return data.length;
 };

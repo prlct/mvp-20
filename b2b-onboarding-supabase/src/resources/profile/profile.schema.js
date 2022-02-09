@@ -9,10 +9,13 @@ const profileSchema = object({
   first_name: string().required(),
   last_name: string().required(),
   status: string().oneOf(['active', 'blocked']).default('active'),
-  type: string().oneOf(['client', 'broker']).required(),
-  roles: array().of(
+  type: string().oneOf(['client', 'realtor']).required(),
+  realtor_roles: array().of(
+    string().oneOf(['owner']),
+  ).nullable(),
+  client_roles: array().of(
     string().oneOf(['seller', 'buyer']),
-  ),
+  ).nullable(),
 });
 
 export default profileSchema;

@@ -5,7 +5,7 @@ import * as userService from 'resources/user/user.service';
 export const getProfileId = async () => {
   const user = userService.getUser();
 
-  const { data: profiles, error } = await supabase
+  const { data: profile, error } = await supabase
     .from('profiles')
     .select('id')
     .match({ user_id: user.id })
@@ -14,7 +14,22 @@ export const getProfileId = async () => {
 
   if (error) throw error;
 
-  return profiles.id;
+  return profile.id;
+};
+
+export const getProfile = async () => {
+  const user = userService.getUser();
+
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select()
+    .match({ user_id: user.id })
+    .limit(1)
+    .single();
+
+  if (error) throw error;
+
+  return profile;
 };
 
 export const createProfile = async ({
