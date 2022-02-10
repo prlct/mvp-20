@@ -2,6 +2,8 @@ import { supabase } from 'utils/supabaseClient';
 
 export const getUser = () => supabase.auth.user();
 
+export const getUserId = () => supabase.auth.user().id;
+
 export const updateUser = async (data) => {
   const { error } = await supabase.auth.update({
     data,

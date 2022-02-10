@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Head from 'next/head';
 
 import { supabase } from 'utils/supabaseClient';
@@ -7,6 +8,8 @@ import { supabase } from 'utils/supabaseClient';
 import PageConfig from './PageConfig';
 
 import 'styles/globals.css';
+
+const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }) => {
   const [session, setSession] = useState(null);
@@ -29,9 +32,11 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <title>Ship</title>
       </Head>
-      <PageConfig session={session}>
-        <Component {...pageProps} />
-      </PageConfig>
+      <QueryClientProvider client={queryClient}>
+        <PageConfig session={session}>
+          <Component {...pageProps} />
+        </PageConfig>
+      </QueryClientProvider>
     </>
   );
 };

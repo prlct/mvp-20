@@ -9,6 +9,8 @@ import { supabase } from 'utils/supabaseClient';
 import * as userService from 'resources/user/user.service';
 import * as companyService from 'resources/company/company.service';
 
+import { useCompletedTasks } from 'resources/task/hooks';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
 
@@ -19,6 +21,8 @@ const schema = yup.object().shape({
 });
 
 const Home = () => {
+  const { isLoading, error, data } = useCompletedTasks();
+
   const [companyUsersCount, setCompanyUsersCount] = useState(0);
   const [loading, setIsLoading] = useState(false);
 
