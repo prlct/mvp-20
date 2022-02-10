@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
+import { toLocalDate } from 'helpers/date';
+
 import supabase from 'utils/supabaseClient';
 
 import * as userService from 'resources/user/user.service';
@@ -78,6 +80,11 @@ const Home = () => {
       </Head>
       <div className={styles.content}>
         <p>{`Users in your company: ${companyUsersCount}`}</p>
+        <p>
+          Current time:
+          {' '}
+          {toLocalDate(new Date())}
+        </p>
         <form
           onSubmit={handleSubmit(onInviteUser)}
         >
