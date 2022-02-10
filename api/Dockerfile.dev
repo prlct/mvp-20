@@ -10,7 +10,7 @@ ENV APP_ENV=$APP_ENV
 
 WORKDIR /app
 COPY ["./package.json", "package-lock.json", "./.npmrc", "./.eslintrc.js", "./tsconfig.json", "/app/"]
-RUN npm ci --quiet
+RUN npm ci --quiet --include=dev
 
 COPY . ./
 
