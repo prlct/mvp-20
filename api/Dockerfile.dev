@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:16.13.1
+FROM node:16.13.1
 
 EXPOSE 3001
 
@@ -16,4 +16,4 @@ COPY . ./
 
 RUN npm run build:tcs
 
-CMD npm start
+CMD npm run development

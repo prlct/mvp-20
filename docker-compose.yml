@@ -1,19 +1,34 @@
 version: '3.6'
 services:
-  web:
+  api:
+    container_name: listedkit-api
     build:
-      context: ./b2b-onboarding
+      context: ./api
+      dockerfile: Dockerfile.dev
+    environment:
+      APP_ENV: development
+      NODE_ENV: development
+    volumes:
+      - ./api/src:/app/src
+    networks:
+      - listedkit
+    ports:
+      - 3001:3001
+  web:
+    container_name: listedkit-web
+    build:
+      context: ./b2b-onboarding-supabase
       dockerfile: Dockerfile.dev
       args:
         APP_ENV: development
         NODE_ENV: development
     volumes:
-      - .b2b-onboarding/src:/app/src
+      - ./b2b-onboarding-supabase/src:/app/src
     networks:
-      - ship
+      - listedkit
     ports:
-      - "3002:3002"
+      - 3002:3002
 
 networks:
-  ship:
-    name: ship_network
+  listedkit:
+    name: listedkit-network
