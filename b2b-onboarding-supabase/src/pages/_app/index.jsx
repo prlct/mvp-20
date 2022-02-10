@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Head from 'next/head';
+import { ToastProvider } from 'react-toast-notifications';
 
-import { supabase } from 'utils/supabaseClient';
+import supabase from 'utils/supabaseClient';
+
+import Toast from 'components/Toast';
+import ToastContainer from 'components/Toast/components/ToastContainer';
 
 import PageConfig from './PageConfig';
 
@@ -32,11 +36,21 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <title>Ship</title>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <PageConfig session={session}>
-          <Component {...pageProps} />
-        </PageConfig>
-      </QueryClientProvider>
+      <div id="root">
+        <QueryClientProvider client={queryClient}>
+          <ToastProvider
+            autoDismissTimeout={2000}
+            components={{ Toast, ToastContainer }}
+            autoDismiss
+            portalTargetSelector="#root"
+            placement="top-center"
+          >
+            <PageConfig session={session}>
+              <Component {...pageProps} />
+            </PageConfig>
+          </ToastProvider>
+        </QueryClientProvider>
+      </div>
     </>
   );
 };

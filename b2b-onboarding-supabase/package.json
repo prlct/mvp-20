@@ -44,6 +44,7 @@
     "react-paginate": "8.0.1",
     "react-query": "^3.34.14",
     "react-select": "5.2.1",
+    "react-toast-notifications": "^2.5.1",
     "socket.io-client": "4.4.0",
     "yup": "0.32.11"
   },

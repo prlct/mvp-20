@@ -1,4 +1,4 @@
-import { supabase } from 'utils/supabaseClient';
+import supabase from 'utils/supabaseClient';
 import * as userService from 'resources/user/user.service';
 import * as profileService from 'resources/profile/profile.service';
 

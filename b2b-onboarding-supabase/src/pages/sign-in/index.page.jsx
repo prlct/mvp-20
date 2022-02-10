@@ -9,6 +9,8 @@ import { path } from 'pages/routes';
 
 import * as userService from 'resources/user/user.service';
 
+import useToast from 'hooks/useToast';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Link from 'components/Link';
@@ -22,6 +24,8 @@ const schema = yup.object().shape({
 });
 
 const SignIn = () => {
+  const { error: showError } = useToast();
+
   const {
     handleSubmit, formState: { errors }, control,
   } = useForm({
@@ -38,8 +42,8 @@ const SignIn = () => {
         email: data.username,
         password: data.password,
       });
-    } catch (e) {
-      alert(e.error_description || e.message);
+    } catch (error) {
+      showError(error);
     } finally {
       setLoading(false);
     }

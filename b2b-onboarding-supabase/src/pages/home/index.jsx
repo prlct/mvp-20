@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
-import { supabase } from 'utils/supabaseClient';
+import supabase from 'utils/supabaseClient';
 
 import * as userService from 'resources/user/user.service';
 import * as companyService from 'resources/company/company.service';
@@ -21,7 +21,7 @@ const schema = yup.object().shape({
 });
 
 const Home = () => {
-  const { isLoading, error, data } = useCompletedTasks();
+  const { isLoading, error } = useCompletedTasks();
 
   const [companyUsersCount, setCompanyUsersCount] = useState(0);
   const [loading, setIsLoading] = useState(false);
