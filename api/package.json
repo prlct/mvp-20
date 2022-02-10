@@ -17,6 +17,7 @@
     "build:email": "npm run copy-assets && mjml ./src/assets/emails/*.mjml -o ./src/assets/emails/dist/",
     "serve": "node dist/src/app.js",
     "start": "npm run serve",
+    "build:tcs": "tsc",
     "test:eslint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "development": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
     "prepush": "lint-prepush --allow-empty"
