@@ -1,21 +1,28 @@
-import utils from '@paperclip/utils';
+import devConfgig from './development.json';
+import stagingConfgig from './staging.json';
+import profuctionConfgig from './production.json';
 
 const ENV = process.env;
 const env = ENV.APP_ENV || 'development';
 
-const base = {
-  env,
-  port: Number(ENV.PORT) || 3001,
-  isDev: env === 'development',
-  defaultErrorMessage: 'Oops, something went wrong. Please, try again later.',
-  apiUrl: '',
-};
+let config = null;
+switch (ENV.APP_ENV) {
+  case 'staging':
+    config = stagingConfgig;
+    break;
 
-const config = utils.configUtil.loadConfig(base, env, __dirname);
+  case 'production':
+    config = profuctionConfgig;
+    break;
 
-// for release env
-if (ENV.API_URL) {
-  config.apiUrl = ENV.API_URL;
+  default:
+    config = devConfgig;
+    break;
 }
 
-export default config;
+export default {
+  ...config,
+  env,
+  port: Number(process.env.PORT) || 3001,
+  isDev: env === 'development',
+};

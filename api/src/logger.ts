@@ -1,8 +1,7 @@
 import winston from 'winston';
-import { Loggly } from 'winston-loggly-bulk';
 import config from 'config';
 
-const { isDev, env } = config;
+const { isDev } = config;
 
 const getFormat = () => {
   if (isDev) {

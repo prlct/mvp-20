@@ -15,15 +15,22 @@ import initKoa from 'config/koa';
 
 process.env.APP_ENV = process.env.APP_ENV || 'development';
 
-const app = new Koa();
-initKoa(app);
+import migrator from 'migrations/index';
 
-const server = http.createServer(app.callback());
+let app;
+(async () => {
+  await migrator.exec();
 
-const message = `Api server listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`;
-server.listen(config.port, () => {
-  logger.info(message);
-});
+  app = new Koa();
+  initKoa(app);
+
+  const server = http.createServer(app.callback());
+
+  const message = `Api server listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`;
+  server.listen(config.port, () => {
+    logger.info(message);
+  });
+})();
 
 
 export default app;
